@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ShopOnline.Models.Order>
+@{
+    ViewBag.Title = "Отчет";
+}
+
+<h2>Отчет</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Label("", "Клиент: ") @Html.TextBox("beginDate")<br />
+    @Html.Label("", "Начальная дата: ") @Html.TextBox("beginDate")<br />
+    @Html.Label("", "Конечная дата: ")@Html.TextBox("endDate")
+    <input type="submit" value="Применить" />
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCount)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.LastName)
+                @Html.DisplayFor(modelItem => item.Client.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductCount)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Подробно", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<h2>Количество продаж: @ViewBag.OrderCount</h2>
+<h2>Сумма продаж: @ViewBag.OrderSum</h2>
