@@ -120,7 +120,7 @@ namespace ShopOnline.Controllers
             ViewBag.Client = new SelectList(db.Clients.Select(x => new { ID = x.ID, FullName = x.Name + " " + x.LastName }), "ID", "FullName", order.Client?.ID);
             ViewBag.Product = new SelectList(db.Products, "ID", "Name", order.Product?.ID);
 
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 db.Entry(order).State = EntityState.Modified;
                 var client = db.Clients.ToList().FirstOrDefault(x => x.ID == Convert.ToInt32(Request["Client"]));
